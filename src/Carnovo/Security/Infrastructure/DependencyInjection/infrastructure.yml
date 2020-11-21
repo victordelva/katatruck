@@ -1,0 +1,17 @@
+services:
+  security.authenticator.api_key:
+    class: App\Carnovo\Security\Application\BasicAuthenticator
+    public: true
+
+  security.provider.api_key:
+    class: App\Carnovo\Security\Application\ApiCredentialsProvider
+    public: true
+    arguments:
+      - '@security.repository.credentials'
+
+  security.repository.credentials:
+    class: App\Carnovo\Security\Infrastructure\Persistence\Repository\DiskCredentialsRepository
+    public: true
+    arguments:
+      - '%api_user%'
+      - '%api_key%'

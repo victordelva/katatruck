@@ -2,3 +2,8 @@ health:
   path: /health
   controller: 'cars.controller.health'
   methods: [GET]
+
+get_cars:
+  path: /cars
+  controller: 'cars.controller.get_cars'
+  methods: [GET]

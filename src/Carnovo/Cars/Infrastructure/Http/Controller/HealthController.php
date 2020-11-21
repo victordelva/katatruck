@@ -6,6 +6,11 @@ class HealthController
 {
     public function __construct()
     {
+
+    }
+
+    public function __invoke()
+    {
         dd("ok");
     }
 }

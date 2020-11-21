@@ -1,0 +1,13 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        credentials_provider:
+            id: security.provider.api_key
+
+    firewalls:
+        main:
+            stateless: true
+            provider: credentials_provider
+            guard:
+                authenticators:
+                    - 'security.authenticator.api_key'

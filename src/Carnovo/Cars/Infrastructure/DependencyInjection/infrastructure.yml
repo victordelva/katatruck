@@ -2,3 +2,7 @@ services:
   cars.controller.health:
     public: true
     class: App\Carnovo\Cars\Infrastructure\Http\Controller\HealthController
+
+  cars.controller.get_cars:
+    public: true
+    class: App\Carnovo\Cars\Infrastructure\Http\Controller\GetCarsController
