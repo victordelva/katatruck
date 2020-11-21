@@ -7,13 +7,23 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-spl": "*",
+        "ext-amqp": "*",
+        "ext-apcu": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "symfony/validator": "*",
+        "ramsey/uuid": "^3.9"
     },
     "require-dev": {
+        "ext-xdebug": "*",
+        "phpunit/phpunit": "^9.2",
+        "mockery/mockery": "^1.4"
     },
     "config": {
         "optimize-autoloader": true,

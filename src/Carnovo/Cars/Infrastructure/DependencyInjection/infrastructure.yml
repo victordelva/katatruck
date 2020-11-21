@@ -1,0 +1,4 @@
+services:
+  cars.controller.health:
+    public: true
+    class: App\Carnovo\Cars\Infrastructure\Http\Controller\HealthController

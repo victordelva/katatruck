@@ -34,5 +34,8 @@ class Kernel extends BaseKernel
         } elseif (is_file($path = \dirname(__DIR__).'/config/routes.php')) {
             (require $path)($routes->withPath($path), $this);
         }
+
+        $routes->import($this->getProjectDir().'/src/Carnovo/Cars/Infrastructure/Routes/routes.yml');
+
     }
 }

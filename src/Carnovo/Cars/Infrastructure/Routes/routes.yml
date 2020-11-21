@@ -1,0 +1,4 @@
+health:
+  path: /health
+  controller: 'cars.controller.health'
+  methods: [GET]
