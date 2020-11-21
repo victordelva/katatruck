@@ -8,3 +8,11 @@ services:
     class: App\Carnovo\Cars\Infrastructure\Http\Controller\GetCarsController
     arguments:
       - '@App\Carnovo\Cars\Application\UseCase\GetCarsUseCase'
+
+  App\Carnovo\Cars\Domain\Interfaces\CarsRepository:
+    class: App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineCarsRepository
+
+  App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineCarsRepository:
+    public: true
+    arguments:
+      - '@doctrine.orm.default_entity_manager'

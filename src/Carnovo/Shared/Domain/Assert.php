@@ -18,7 +18,7 @@ final class Assert
     public static function instanceOf(string $class, $item): void
     {
         if (!$item instanceof $class) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('The object <%s> is not an instance of <%s>', $class, get_class($item))
             );
         }

@@ -1,0 +1,22 @@
+App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity\Car:
+  type: entity
+  table: cars
+  indexes:
+    id:
+      columns: id
+  id:
+    id:
+      type: guid
+  fields:
+    brand:
+      type: string
+      nullable: false
+    model:
+      type: string
+      nullable: false
+    priceAmount:
+      type: integer
+      nullable: false
+    priceCurrency:
+      type: string
+      nullable: false
