@@ -13,7 +13,6 @@ use App\Carnovo\Cars\Domain\Model\Model;
 use App\Carnovo\Cars\Domain\Model\Price;
 use App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity\Car;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\AssignOp\Mod;
 
 class DoctrineCarsRepository implements CarsRepository
 {
@@ -24,7 +23,7 @@ class DoctrineCarsRepository implements CarsRepository
         $this->entityManager = $entityManager;
     }
 
-    public function findCarsBy(?Brand $brand = null, ?Model $model = null, ?Price $lessEqual = null, ?Price $moreEqual = null): CarsCollection
+    public function findCarsBy(?Brand $brand = null, ?Model $model = null, ?int $lessEqual = null, ?int $moreEqual = null): CarsCollection
         {
             $query = $this->entityManager->createQueryBuilder()
                 ->select('c')
@@ -43,12 +42,12 @@ class DoctrineCarsRepository implements CarsRepository
 
             if (!is_null($lessEqual)) {
                 $query->andWhere("c.price_amount <= :less")
-                    ->setParameter("lest", $lessEqual->getAmount());
+                    ->setParameter("lest", $lessEqual);
             }
 
             if (!is_null($moreEqual)) {
                 $query->andWhere("c.price_amount >= :more")
-                    ->setParameter("more", $moreEqual->getAmount());
+                    ->setParameter("more", $moreEqual);
             }
 
             $result = $query

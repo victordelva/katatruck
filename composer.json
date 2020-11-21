@@ -31,12 +31,14 @@
         "codeception/codeception": "^4.1",
         "codeception/module-asserts": "^1.1",
         "codeception/module-db": "^1.0",
+        "fzaninotto/faker": "^1.8",
         "codeception/module-doctrine2": "^1.1",
         "codeception/module-phpbrowser": "^1.0.0",
         "codeception/module-rest": "^1.2",
         "codeception/module-symfony": "^1.0",
         "codeception/phpunit-wrapper": "*",
-        "mockery/mockery": "^1.4"
+        "mockery/mockery": "^1.4",
+        "phpspec/prophecy-phpunit": "*"
     },
     "config": {
         "optimize-autoloader": true,

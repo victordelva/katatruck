@@ -27,4 +27,9 @@ class Price
     {
         return $this->currency;
     }
+
+    public function __toString()
+    {
+        return $this->getAmount() . " " . $this->getCurrency()->value();
+    }
 }

@@ -32,4 +32,9 @@ abstract class Collection implements Countable, IteratorAggregate
     {
         return $this->items;
     }
+
+    public function __toArray()
+    {
+        return $this->items();
+    }
 }
