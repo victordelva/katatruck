@@ -6,3 +6,5 @@ services:
   cars.controller.get_cars:
     public: true
     class: App\Carnovo\Cars\Infrastructure\Http\Controller\GetCarsController
+    arguments:
+      - '@App\Carnovo\Cars\Application\UseCase\GetCarsUseCase'

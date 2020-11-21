@@ -2,7 +2,6 @@
 
 namespace App\Tests\functional\Carnovo\Cars\Infrastructure\Http\Controller;
 
-use App\Carnovo\Cars\Infrastructure\Http\Controller\GetCarsController;
 use App\Tests\FunctionalTester;
 use Codeception\Module\Symfony;
 use Symfony\Component\HttpFoundation\Response;

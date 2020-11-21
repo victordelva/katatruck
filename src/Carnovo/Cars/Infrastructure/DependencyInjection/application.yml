@@ -1,0 +1,3 @@
+services:
+  App\Carnovo\Cars\Application\UseCase\GetCarsUseCase:
+    public: true
