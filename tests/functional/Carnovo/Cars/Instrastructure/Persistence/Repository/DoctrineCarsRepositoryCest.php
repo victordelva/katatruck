@@ -20,7 +20,14 @@ class DoctrineCarsRepositoryCest
 
     public function itShouldReturnCars(FunctionalTester $I)
     {
-        $cars = $this->carsRepository->findCarsBy();
+        $cars = $this->carsRepository->findCarsBy(
+            null,
+            null,
+            null,
+            null,
+            null,
+
+        );
         $I->assertEquals(CarsCollection::class, get_class($cars));
     }
 

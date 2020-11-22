@@ -9,6 +9,7 @@ use App\Carnovo\Cars\Application\Response\CarsCollectionResponse;
 use App\Carnovo\Cars\Domain\Interfaces\CarsRepository;
 use App\Carnovo\Cars\Domain\Model\Brand;
 use App\Carnovo\Cars\Domain\Model\Car;
+use App\Carnovo\Cars\Domain\Model\CarsOrderBy;
 use App\Carnovo\Cars\Domain\Model\Model;
 
 final class GetCarsUseCase
@@ -27,6 +28,8 @@ final class GetCarsUseCase
             $getCarsRequest->getModel() ? new Model($getCarsRequest->getModel()) : null,
             $getCarsRequest->getPriceLessEqualThan(),
             $getCarsRequest->getPriceMoreEqualThan(),
+            $getCarsRequest->getOrderBy() ? new CarsOrderBy($getCarsRequest->getOrderBy()) : null,
+            $getCarsRequest->getPage()
         );
 
         return new CarsCollectionResponse(array_map(function (Car $car) {

@@ -8,6 +8,7 @@ use App\Carnovo\Cars\Domain\Model\Brand;
 use App\Carnovo\Cars\Domain\Model\Car;
 use App\Carnovo\Cars\Domain\Model\CarId;
 use App\Carnovo\Cars\Domain\Model\CarsCollection;
+use App\Carnovo\Cars\Domain\Model\CarsOrderBy;
 use App\Carnovo\Cars\Domain\Model\Model;
 
 interface CarsRepository
@@ -16,7 +17,9 @@ interface CarsRepository
         ?Brand $brand = null,
         ?Model $model = null,
         ?int $priceLessEqual = null,
-        ?int $priceMoreEqual = null
+        ?int $priceMoreEqual = null,
+        ?CarsOrderBy $orderBy = null,
+        int $page = 1
     ): CarsCollection;
 
     public function save(Car $car): void;

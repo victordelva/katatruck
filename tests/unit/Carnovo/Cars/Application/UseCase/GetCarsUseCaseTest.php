@@ -34,14 +34,16 @@ class GetCarsUseCaseTest extends TestCase
     public function testItReturnsCars(): void
     {
         $this->carsRepository
-            ->findCarsBy(Argument::any(),Argument::any(), Argument::any(), Argument::any())
+            ->findCarsBy(Argument::any(),Argument::any(), Argument::any(), Argument::any(), Argument::any(), Argument::any())
             ->willReturn(new CarsCollection([$car = CarMother::random()]));
 
         $cars = ($this->sut)(new GetCarsRequest(
             null,
             null,
             null,
-            null
+            null,
+            null,
+            1
         ));
 
         self::assertEquals(CarsCollectionResponse::class, get_class($cars));

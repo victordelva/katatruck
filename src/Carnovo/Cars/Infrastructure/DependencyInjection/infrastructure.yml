@@ -29,7 +29,11 @@ services:
 
   App\Carnovo\Cars\Domain\Interfaces\CarPriceRepository: '@App\Carnovo\Cars\Infrastructure\Persistence\Repository\HttpCarPriceRepository'
 
-  App\Carnovo\Cars\Infrastructure\Persistence\Repository\HttpCarPriceRepository: ~
+  GuzzleHttp\Client: ~
+
+  App\Carnovo\Cars\Infrastructure\Persistence\Repository\HttpCarPriceRepository:
+    arguments:
+      - '@GuzzleHttp\Client'
 
   App\Carnovo\Cars\Infrastructure\CLI\ImportCarsCommand:
     tags:

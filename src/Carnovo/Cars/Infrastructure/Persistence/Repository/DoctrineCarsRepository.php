@@ -10,6 +10,7 @@ use App\Carnovo\Cars\Domain\Model\Brand;
 use App\Carnovo\Cars\Domain\Model\Car as CarDomain;
 use App\Carnovo\Cars\Domain\Model\CarId;
 use App\Carnovo\Cars\Domain\Model\CarsCollection;
+use App\Carnovo\Cars\Domain\Model\CarsOrderBy;
 use App\Carnovo\Cars\Domain\Model\Currency;
 use App\Carnovo\Cars\Domain\Model\Model;
 use App\Carnovo\Cars\Domain\Model\Price;
@@ -18,6 +19,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class DoctrineCarsRepository implements CarsRepository
 {
+    // TODO define MAX in request
+    private const MAX_RESULT = 10;
+
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -29,7 +33,9 @@ final class DoctrineCarsRepository implements CarsRepository
         ?Brand $brand = null,
         ?Model $model = null,
         ?int $lessEqual = null,
-        ?int $moreEqual = null
+        ?int $moreEqual = null,
+        ?CarsOrderBy $orderBy = null,
+        int $page = 1
     ): CarsCollection {
         $query = $this->entityManager->createQueryBuilder()
             ->select('c')
@@ -55,6 +61,14 @@ final class DoctrineCarsRepository implements CarsRepository
             $query->andWhere("c.price_amount >= :more")
                 ->setParameter("more", $moreEqual);
         }
+
+        $orderByMapped = $this->getOderByMapping($orderBy);
+        if (!is_null($orderByMapped)) {
+            $query->orderBy(sprintf("c.%s",$orderByMapped));
+        }
+
+        $query->setMaxResults(self::MAX_RESULT)
+            ->setFirstResult(self::MAX_RESULT*$page);
 
         $result = $query
             ->getQuery()
@@ -107,5 +121,21 @@ final class DoctrineCarsRepository implements CarsRepository
             new Model($car->getModel()),
             new Price($car->getPriceAmount(), new Currency($car->getPriceCurrency()))
         );
+    }
+
+    private function getOderByMapping(?CarsOrderBy $orderBy): ?string
+    {
+        if (is_null($orderBy)) return null;
+
+        switch ($orderBy->getValue()) {
+            case "brand":
+                return "brand";
+            case "model":
+                return "model";
+            case "price":
+                return "priceAmount";
+            default:
+                return null;
+        }
     }
 }
