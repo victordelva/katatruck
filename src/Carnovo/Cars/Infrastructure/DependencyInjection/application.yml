@@ -8,3 +8,8 @@ services:
     arguments:
       - '@App\Carnovo\Cars\Domain\Interfaces\CarsRepository'
       - '@App\Carnovo\Cars\Domain\Interfaces\CarPriceRepository'
+
+  App\Carnovo\Cars\Application\UseCase\FavCarUseCase:
+    arguments:
+      - '@App\Carnovo\Cars\Domain\Interfaces\CarsRepository'
+      - '@App\Carnovo\Cars\Domain\Interfaces\UserCarsRepository'

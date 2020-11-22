@@ -40,19 +40,18 @@ class ImportCarsCommand extends Command
                 while(!feof($file)) {
                     $line = fgets($file);
                     if (!$isHeader) {
-                        list($nan, $nan, $nan, $fullText) = preg_split("/[\t]/", $line);
+                        list($schema, $id, $nan, $fullText) = preg_split("/[\t]/", $line);
                         list($brand, $model) = explode(':', preg_replace("/\r|\n/", "", $fullText));
-                        ($this->useCase)(new ImportCarRequest($brand, $model));
+                        ($this->useCase)(new ImportCarRequest($schema."+".$id, $brand, $model));
+                        ++$nCarsImported;
                     }
                     $isHeader = false;
-                    ++$nCarsImported;
                 }
                 fclose($file);
             }
 
             $output->writeln(sprintf('<info>%s cars imported</info>', $nCarsImported));
         } catch (\Exception $exception) {
-            dd($exception);
             $output->writeln('<info>Error importing cars</info>');
             return 1;
         }

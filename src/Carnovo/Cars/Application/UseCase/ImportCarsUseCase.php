@@ -9,6 +9,7 @@ use App\Carnovo\Cars\Domain\Interfaces\CarPriceRepository;
 use App\Carnovo\Cars\Domain\Interfaces\CarsRepository;
 use App\Carnovo\Cars\Domain\Model\Brand;
 use App\Carnovo\Cars\Domain\Model\Car;
+use App\Carnovo\Cars\Domain\Model\CarId;
 use App\Carnovo\Cars\Domain\Model\Model;
 
 final class ImportCarsUseCase
@@ -27,10 +28,11 @@ final class ImportCarsUseCase
 
     public function __invoke(ImportCarRequest $request) : void
     {
+        $id = new CarId($request->getId());
         $brand = new Brand($request->getBrand());
         $model = new Model($request->getModel());
         $price = $this->carPriceRepository->findModelPrice($brand, $model);
 
-        $this->carsRepository->save(new Car($brand, $model, $price));
+        $this->carsRepository->save(new Car($id, $brand, $model, $price));
     }
 }

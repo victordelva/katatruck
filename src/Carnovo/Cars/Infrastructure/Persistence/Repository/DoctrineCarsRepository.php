@@ -4,9 +4,11 @@
 namespace App\Carnovo\Cars\Infrastructure\Persistence\Repository;
 
 
+use App\Carnovo\Cars\Domain\Exception\CarNotFound;
 use App\Carnovo\Cars\Domain\Interfaces\CarsRepository;
 use App\Carnovo\Cars\Domain\Model\Brand;
 use App\Carnovo\Cars\Domain\Model\Car as CarDomain;
+use App\Carnovo\Cars\Domain\Model\CarId;
 use App\Carnovo\Cars\Domain\Model\CarsCollection;
 use App\Carnovo\Cars\Domain\Model\Currency;
 use App\Carnovo\Cars\Domain\Model\Model;
@@ -59,26 +61,51 @@ final class DoctrineCarsRepository implements CarsRepository
             ->getResult();
 
         return new CarsCollection(array_map(function (Car $car) {
-            return new CarDomain(
-                new Brand($car->getBrand()),
-                new Model($car->getModel()),
-                new Price($car->getPriceAmount(), new Currency($car->getPriceCurrency()))
-            );
+            return $this->carDomainFromCar($car);
         }, $result));
     }
 
     public function save(CarDomain $carDomain): void
     {
-        // TODO do not duplicate Car
-        $car = new Car(
-            null,
-            $carDomain->getBrand()->getValue(),
-            $carDomain->getModel()->getValue(),
-            $carDomain->getPrice()->getAmount(),
-            $carDomain->getPrice()->getCurrency()->value()
-        );
+        /** @var Car $car */
+        $car = $this->entityManager->find(Car::class, $carDomain->getCarId()->getValue());
+
+        if (is_null($car)) {
+            $car = new Car(
+                $carDomain->getCarId()->getValue(),
+                $carDomain->getBrand()->getValue(),
+                $carDomain->getModel()->getValue(),
+                $carDomain->getPrice()->getAmount(),
+                $carDomain->getPrice()->getCurrency()->getValue()
+            );
+        } else {
+            $car->changePriceAmount($carDomain->getPrice()->getAmount());
+            $car->changePriceCurrency($carDomain->getPrice()->getCurrency());
+        }
 
         $this->entityManager->persist($car);
         $this->entityManager->flush();
+    }
+
+    public function findById(CarId $carId): CarDomain
+    {
+        /** @var Car $car */
+        $car = $this->entityManager->find(Car::class, $carId->getValue());
+
+        if (!is_null($car)) {
+            return $this->carDomainFromCar($car);
+        }
+
+        throw new CarNotFound($carId->getValue());
+    }
+
+    private function carDomainFromCar(Car $car): CarDomain
+    {
+        return new CarDomain(
+            new CarId($car->getId()),
+            new Brand($car->getBrand()),
+            new Model($car->getModel()),
+            new Price($car->getPriceAmount(), new Currency($car->getPriceCurrency()))
+        );
     }
 }

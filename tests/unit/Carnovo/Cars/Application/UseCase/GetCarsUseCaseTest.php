@@ -4,6 +4,7 @@ namespace App\Carnovo\Cars\Application\UseCase;
 
 
 use App\Carnovo\Cars\Application\Request\GetCarsRequest;
+use App\Carnovo\Cars\Application\Response\CarResponse;
 use App\Carnovo\Cars\Application\Response\CarsCollectionResponse;
 use App\Carnovo\Cars\Domain\Interfaces\CarsRepository;
 use App\Carnovo\Cars\Domain\Model\CarsCollection;
@@ -34,8 +35,7 @@ class GetCarsUseCaseTest extends TestCase
     {
         $this->carsRepository
             ->findCarsBy(Argument::any(),Argument::any(), Argument::any(), Argument::any())
-            ->willReturn(new CarsCollection([CarMother::random()]))
-            ->shouldBeCalledOnce();
+            ->willReturn(new CarsCollection([$car = CarMother::random()]));
 
         $cars = ($this->sut)(new GetCarsRequest(
             null,
@@ -44,7 +44,8 @@ class GetCarsUseCaseTest extends TestCase
             null
         ));
 
-        self::assertContains(CarsCollectionResponse::class, get_class($cars));
+        self::assertEquals(CarsCollectionResponse::class, get_class($cars));
+        self::assertEquals($cars->getIterator()->current(), new CarResponse($car->getBrand()->getValue(), $car->getModel()->getValue(), (string)$car->getPrice()));
     }
 
 }

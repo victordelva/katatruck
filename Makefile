@@ -18,6 +18,10 @@ refresh: kill-all
 	$(COMPOSE) build
 	$(COMPOSE) up -d
 
+test:
+	@docker exec -it $(CONTAINER_NAME) vendor/bin/codecept run tests/
+	@docker exec -it $(CONTAINER_NAME) vendor/bin/phpunit
+
 bash:
 	docker exec -it $(CONTAINER_NAME) bash
 

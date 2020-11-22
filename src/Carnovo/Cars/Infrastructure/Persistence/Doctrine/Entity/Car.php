@@ -4,16 +4,16 @@
 namespace App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity;
 
 
-class Car
+final class Car
 {
     private string $brand;
     private string $model;
     private int $priceAmount;
     private string $priceCurrency;
-    private ?int $id;
+    private string $id;
 
     public function __construct(
-        ?int $id,
+        string $id,
         string $brand,
         string $model,
         int $priceAmount,
@@ -46,8 +46,18 @@ class Car
         return $this->priceCurrency;
     }
 
-    public function getId(): ?int
+    public function getId(): string
     {
         return $this->id;
+    }
+
+    public function changePriceAmount(int $priceAmount): void
+    {
+        $this->priceAmount = $priceAmount;
+    }
+
+    public function changePriceCurrency(string $priceCurrency): void
+    {
+        $this->priceCurrency = $priceCurrency;
     }
 }

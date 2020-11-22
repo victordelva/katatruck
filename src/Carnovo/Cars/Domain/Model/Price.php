@@ -30,6 +30,6 @@ class Price
 
     public function __toString()
     {
-        return $this->getAmount() . " " . $this->getCurrency()->value();
+        return $this->getAmount() . " " . $this->getCurrency()->getValue();
     }
 }

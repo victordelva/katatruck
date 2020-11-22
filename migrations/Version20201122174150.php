@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201121202725 extends AbstractMigration
+final class Version20201122174150 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,10 @@ final class Version20201121202725 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         $this->addSql('
-            CREATE TABLE cars (
-                id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                brand varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                model varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                price_amount int(11) NOT NULL,
-                price_currency varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+            CREATE TABLE user_car_favs (
+                id int(10) unsigned NOT NULL AUTO_INCREMENT,
+                user_name varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                car_id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
                 PRIMARY KEY (id)
             );
         ');
@@ -34,7 +32,7 @@ final class Version20201121202725 extends AbstractMigration
     public function down(Schema $schema) : void
     {
         $this->addSql('
-            DROP TABLE cars
+            DROP TABLE user_car_favs
         ');
     }
 }

@@ -60,7 +60,7 @@ abstract class Enum implements Stringable
         return static fn($unused, string $key): string => Utils::toCamelCase(strtolower($key));
     }
 
-    public function value()
+    public function getValue()
     {
         return $this->value;
     }
@@ -72,7 +72,7 @@ abstract class Enum implements Stringable
 
     public function __toString(): string
     {
-        return (string) $this->value();
+        return (string) $this->getValue();
     }
 
     private function ensureIsBetweenAcceptedValues($value): void

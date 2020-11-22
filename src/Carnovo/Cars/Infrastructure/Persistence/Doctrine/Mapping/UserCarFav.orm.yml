@@ -1,0 +1,25 @@
+App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity\UserCarFav:
+  type: entity
+  table: user_car_favs
+  indexes:
+    id:
+      columns: [userName, carId]
+  uniqueConstraints:
+    unique:
+      columns: [userName, carId]
+  id:
+    id:
+      type: integer
+      nullable: false
+      options:
+        unsigned: true
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    userName:
+      type: string
+      nullable: false
+    carId:
+      type: string
+      nullable: false

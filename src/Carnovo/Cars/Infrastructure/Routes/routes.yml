@@ -7,3 +7,9 @@ get_cars:
   path: /cars
   controller: 'cars.controller.get_cars'
   methods: [GET]
+
+
+fav_car:
+  path: /cars/{id}
+  controller: 'cars.controller.fav_car'
+  methods: [PUT]

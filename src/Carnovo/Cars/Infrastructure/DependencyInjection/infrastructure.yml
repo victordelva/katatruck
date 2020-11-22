@@ -9,9 +9,20 @@ services:
     arguments:
       - '@App\Carnovo\Cars\Application\UseCase\GetCarsUseCase'
 
-  App\Carnovo\Cars\Domain\Interfaces\CarsRepository: '@App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineCarsRepository'
+  cars.controller.fav_car:
+    public: true
+    class: App\Carnovo\Cars\Infrastructure\Http\Controller\FavCarController
+    arguments:
+      - '@App\Carnovo\Cars\Application\UseCase\FavCarUseCase'
 
+  App\Carnovo\Cars\Domain\Interfaces\CarsRepository: '@App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineCarsRepository'
   App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineCarsRepository:
+    public: true
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+
+  App\Carnovo\Cars\Domain\Interfaces\UserCarsRepository: '@App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineUserCarsRepository'
+  App\Carnovo\Cars\Infrastructure\Persistence\Repository\DoctrineUserCarsRepository:
     public: true
     arguments:
       - '@doctrine.orm.default_entity_manager'

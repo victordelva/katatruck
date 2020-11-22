@@ -6,9 +6,7 @@ App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity\Car:
       columns: id
   id:
     id:
-      type: guid
-      generator:
-        strategy: IDENTITY
+      type: string
   fields:
     brand:
       type: string

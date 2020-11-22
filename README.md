@@ -19,7 +19,7 @@ make install
 ## Tests ⚙️
 
 ```
-make tests 
+make test
 ```
 
 

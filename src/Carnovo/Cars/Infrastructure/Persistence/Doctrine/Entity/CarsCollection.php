@@ -6,7 +6,7 @@ namespace App\Carnovo\Cars\Infrastructure\Persistence\Doctrine\Entity;
 
 use App\Carnovo\Shared\Domain\Collection;
 
-class CarsCollection extends Collection
+final class CarsCollection extends Collection
 {
     protected function type(): string
     {
