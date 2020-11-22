@@ -33,18 +33,28 @@ class ImportCarsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($file = fopen($this->filePath, "r")) {
-            $isHeader = true;
-            while(!feof($file)) {
-                $line = fgets($file);
-                if (!$isHeader) {
-                    list($nan, $nan, $nan, $fullText) = preg_split("/[\t]/", $line);
-                    list($brand, $model) = explode(':', preg_replace("/\r|\n/", "", $fullText));
-                    ($this->useCase)(new ImportCarRequest($brand, $model));
+        try {
+            $nCarsImported = 0;
+            if ($file = fopen($this->filePath, "r")) {
+                $isHeader = true;
+                while(!feof($file)) {
+                    $line = fgets($file);
+                    if (!$isHeader) {
+                        list($nan, $nan, $nan, $fullText) = preg_split("/[\t]/", $line);
+                        list($brand, $model) = explode(':', preg_replace("/\r|\n/", "", $fullText));
+                        ($this->useCase)(new ImportCarRequest($brand, $model));
+                    }
+                    $isHeader = false;
+                    ++$nCarsImported;
                 }
-                $isHeader = false;
+                fclose($file);
             }
-            fclose($file);
+
+            $output->writeln(sprintf('<info>%s cars imported</info>', $nCarsImported));
+        } catch (\Exception $exception) {
+            dd($exception);
+            $output->writeln('<info>Error importing cars</info>');
+            return 1;
         }
 
         return 0;

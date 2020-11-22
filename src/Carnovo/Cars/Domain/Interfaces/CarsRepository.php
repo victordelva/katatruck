@@ -5,6 +5,7 @@ namespace App\Carnovo\Cars\Domain\Interfaces;
 
 
 use App\Carnovo\Cars\Domain\Model\Brand;
+use App\Carnovo\Cars\Domain\Model\Car;
 use App\Carnovo\Cars\Domain\Model\CarsCollection;
 use App\Carnovo\Cars\Domain\Model\Model;
 
@@ -16,4 +17,6 @@ interface CarsRepository
         ?int $priceLessEqual = null,
         ?int $priceMoreEqual = null
     ): CarsCollection;
+
+    public function save(Car $car): void;
 }

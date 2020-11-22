@@ -16,6 +16,10 @@ services:
     arguments:
       - '@doctrine.orm.default_entity_manager'
 
+  App\Carnovo\Cars\Domain\Interfaces\CarPriceRepository: '@App\Carnovo\Cars\Infrastructure\Persistence\Repository\HttpCarPriceRepository'
+
+  App\Carnovo\Cars\Infrastructure\Persistence\Repository\HttpCarPriceRepository: ~
+
   App\Carnovo\Cars\Infrastructure\CLI\ImportCarsCommand:
     tags:
       - { name: 'console.command', command: 'app:cars:import' }

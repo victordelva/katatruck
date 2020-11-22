@@ -18,6 +18,7 @@ abstract class Enum implements Stringable
     public function __construct($value)
     {
         $this->ensureIsBetweenAcceptedValues($value);
+        $this->value = $value;
     }
 
     abstract protected function throwExceptionForInvalidValue($value);

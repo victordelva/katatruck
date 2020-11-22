@@ -10,10 +10,10 @@ class Car
     private string $model;
     private int $priceAmount;
     private string $priceCurrency;
-    private int $id;
+    private ?int $id;
 
     public function __construct(
-        int $id,
+        ?int $id,
         string $brand,
         string $model,
         int $priceAmount,
@@ -46,7 +46,7 @@ class Car
         return $this->priceCurrency;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
