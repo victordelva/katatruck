@@ -3,3 +3,5 @@ services:
     public: true
     arguments:
       - '@App\Carnovo\Cars\Domain\Interfaces\CarsRepository'
+
+  App\Carnovo\Cars\Application\UseCase\ImportCarsUseCase: ~

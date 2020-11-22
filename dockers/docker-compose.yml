@@ -19,6 +19,7 @@ services:
     working_dir: /var/www/app
     volumes:
       - '..:/var/www/app'
+      - '../carsDatabase:/var/www/carsDatabase'
 
   mysql:
     image: mysql:latest

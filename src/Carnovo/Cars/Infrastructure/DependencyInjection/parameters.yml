@@ -1,0 +1,2 @@
+parameters:
+  cars.file: "%env(CARS_DATABASE_FILE)%"
