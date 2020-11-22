@@ -29,7 +29,8 @@ final class GetCarsUseCase
             $getCarsRequest->getPriceLessEqualThan(),
             $getCarsRequest->getPriceMoreEqualThan(),
             $getCarsRequest->getOrderBy() ? new CarsOrderBy($getCarsRequest->getOrderBy()) : null,
-            $getCarsRequest->getPage()
+            $getCarsRequest->getPage(),
+            $getCarsRequest->getPerPage()
         );
 
         return new CarsCollectionResponse(array_map(function (Car $car) {

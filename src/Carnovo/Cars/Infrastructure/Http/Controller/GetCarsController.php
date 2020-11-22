@@ -28,17 +28,21 @@ class GetCarsController
         $page = $request->get('page') ? (int)$request->get('page') : 1;
         if ($page < 1) $page = 1;
 
+        $perPage = $request->get('per_page') ? (int)$request->get('per_page') : self::MAX_ITEMS;
+        if ($perPage < 1) $perPage = self::MAX_ITEMS;
+
         $cars = ($this->getCarsUseCase)(new GetCarsRequest(
             $request->get("brand"),
             $request->get("model"),
             $request->get("lessPrice"),
             $request->get("morePrice"),
             $request->get('orderBy'),
-            $page
+            $page,
+            $perPage
         ));
 
         return $this->buildResponse($request, Response::HTTP_OK, [
-            "per_page" => self::MAX_ITEMS,
+            "per_page" => $perPage,
             "page" => $page,
             "items" => $cars,
             // TODO add total

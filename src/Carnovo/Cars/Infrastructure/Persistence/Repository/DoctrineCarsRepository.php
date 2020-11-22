@@ -19,9 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class DoctrineCarsRepository implements CarsRepository
 {
-    // TODO define MAX in request
-    private const MAX_RESULT = 10;
-
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -35,7 +32,8 @@ final class DoctrineCarsRepository implements CarsRepository
         ?int $lessEqual = null,
         ?int $moreEqual = null,
         ?CarsOrderBy $orderBy = null,
-        int $page = 1
+        int $page = 1,
+        int $perPage = 10
     ): CarsCollection {
         $query = $this->entityManager->createQueryBuilder()
             ->select('c')
@@ -67,8 +65,8 @@ final class DoctrineCarsRepository implements CarsRepository
             $query->orderBy(sprintf("c.%s",$orderByMapped));
         }
 
-        $query->setMaxResults(self::MAX_RESULT)
-            ->setFirstResult(self::MAX_RESULT*$page);
+        $query->setMaxResults($perPage)
+            ->setFirstResult($perPage*$page);
 
         $result = $query
             ->getQuery()

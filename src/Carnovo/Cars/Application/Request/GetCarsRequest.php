@@ -4,8 +4,6 @@
 namespace App\Carnovo\Cars\Application\Request;
 
 
-use App\Carnovo\Cars\Domain\Model\CarsOrderBy;
-
 class GetCarsRequest
 {
     private ?string $brand;
@@ -14,6 +12,7 @@ class GetCarsRequest
     private ?int $priceMoreEqualThan;
     private ?string $orderBy;
     private int $page;
+    private int $perPage;
 
     public function __construct(
         ?string $brand,
@@ -21,15 +20,16 @@ class GetCarsRequest
         ?int $priceLessEqualThan,
         ?int $priceMoreEqualThan,
         ?string $orderBy,
-        int $page = 1
+        int $page = 1,
+        int $perPage = 10
     ) {
-
         $this->brand = $brand;
         $this->model = $model;
         $this->priceLessEqualThan = $priceLessEqualThan;
         $this->priceMoreEqualThan = $priceMoreEqualThan;
         $this->orderBy = $orderBy;
         $this->page = $page;
+        $this->perPage = $perPage;
     }
 
     public function getBrand(): ?string
@@ -62,4 +62,8 @@ class GetCarsRequest
         return $this->page;
     }
 
+    public function getPerPage(): int
+    {
+        return $this->perPage;
+    }
 }

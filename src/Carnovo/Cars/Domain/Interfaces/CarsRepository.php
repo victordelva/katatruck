@@ -19,7 +19,8 @@ interface CarsRepository
         ?int $priceLessEqual = null,
         ?int $priceMoreEqual = null,
         ?CarsOrderBy $orderBy = null,
-        int $page = 1
+        int $page = 1,
+        int $perPage = 10
     ): CarsCollection;
 
     public function save(Car $car): void;
