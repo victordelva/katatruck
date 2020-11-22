@@ -47,7 +47,15 @@ class GetCarsUseCaseTest extends TestCase
         ));
 
         self::assertEquals(CarsCollectionResponse::class, get_class($cars));
-        self::assertEquals($cars->getIterator()->current(), new CarResponse($car->getBrand()->getValue(), $car->getModel()->getValue(), (string)$car->getPrice()));
+        self::assertEquals(
+            $cars->getIterator()->current(),
+            new CarResponse(
+                $car->getCarId()->getValue(),
+                $car->getBrand()->getValue(),
+                $car->getModel()->getValue(),
+                (string)$car->getPrice()
+            )
+        );
     }
 
 }

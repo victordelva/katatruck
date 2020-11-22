@@ -35,6 +35,7 @@ final class GetCarsUseCase
 
         return new CarsCollectionResponse(array_map(function (Car $car) {
             return new CarResponse(
+                $car->getCarId()->getValue(),
                 $car->getBrand()->getValue(),
                 $car->getModel()->getValue(),
                 (string)$car->getPrice()
