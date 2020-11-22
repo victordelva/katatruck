@@ -33,6 +33,7 @@ class ImportCarsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln(sprintf('<info>Wait this may take time</info>'));
         try {
             $nCarsImported = 0;
             if ($file = fopen($this->filePath, "r")) {
@@ -44,13 +45,17 @@ class ImportCarsCommand extends Command
                         list($brand, $model) = explode(':', preg_replace("/\r|\n/", "", $fullText));
                         ($this->useCase)(new ImportCarRequest($schema."+".$id, $brand, $model));
                         ++$nCarsImported;
+
+                        if (rand(0, 10) == 0) {
+                            $output->writeln(sprintf('<info>%d cars imported already. Wait this may take time...</info>', $nCarsImported));
+                        }
                     }
                     $isHeader = false;
                 }
                 fclose($file);
             }
 
-            $output->writeln(sprintf('<info>%s cars imported</info>', $nCarsImported));
+            $output->writeln(sprintf('<info>Total %s cars imported. Finished</info>', $nCarsImported));
         } catch (\Exception $exception) {
             $output->writeln('<info>Error importing cars</info>');
             return 1;

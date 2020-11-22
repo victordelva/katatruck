@@ -22,6 +22,9 @@ test:
 	@docker exec -it $(CONTAINER_NAME) vendor/bin/codecept run tests/
 	@docker exec -it $(CONTAINER_NAME) vendor/bin/phpunit
 
+import-cars:
+	@docker exec $(CONTAINER_NAME) bin/console app:cars:import
+
 bash:
 	docker exec -it $(CONTAINER_NAME) bash
 
