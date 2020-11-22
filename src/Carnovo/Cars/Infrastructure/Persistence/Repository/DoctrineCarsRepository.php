@@ -51,12 +51,12 @@ final class DoctrineCarsRepository implements CarsRepository
         }
 
         if (!is_null($lessEqual)) {
-            $query->andWhere("c.price_amount <= :less")
-                ->setParameter("lest", $lessEqual);
+            $query->andWhere("c.priceAmount <= :less")
+                ->setParameter("less", $lessEqual);
         }
 
         if (!is_null($moreEqual)) {
-            $query->andWhere("c.price_amount >= :more")
+            $query->andWhere("c.priceAmount >= :more")
                 ->setParameter("more", $moreEqual);
         }
 
