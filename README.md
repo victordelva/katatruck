@@ -5,10 +5,6 @@
 
 Docker y Docker Compose en tu maquina instalado en tu maquina
 
-```
-Da un ejemplo
-```
-
 ### Instalación 🔧
 
 ```
